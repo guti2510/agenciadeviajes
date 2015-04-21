@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Agencia de Viajes TU Ruta</string>
+    <string name="app_name">Agencia de Viajes Tu Ruta</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -11,5 +11,8 @@
     <string name="title_activity_my">Agencia de Viajes TU Ruta</string>
     <string name="title_activity_paquete">Paquete</string>
     <string name="title_activity_destino">Destino</string>
-    <string name="title_activity_reservacion">reservacion</string>
+    <string name="title_activity_reservacion">Reservación</string>
+    <string name="title_activity_reservacion_info">Reservación</string>
+    <string name="title_activity_reservacioncambiar">Cambiar</string>
+    <string name="title_activity_reservacioncancelar">Cancelar</string>
 </resources>

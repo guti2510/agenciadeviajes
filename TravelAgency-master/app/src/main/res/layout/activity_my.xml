@@ -70,12 +70,6 @@
                     android:layout_height="fill_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="No hay Reservaciones"
-                        android:id="@+id/textView9" />
 
                     <ListView
                         android:id="@+id/listAllReservas"

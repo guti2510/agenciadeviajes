@@ -53,6 +53,18 @@
             android:name=".reservacion"
             android:label="@string/title_activity_reservacion" >
         </activity>
+        <activity
+            android:name=".reservacion_info"
+            android:label="@string/title_activity_reservacion_info" >
+        </activity>
+        <activity
+            android:name=".reservacioncambiar"
+            android:label="@string/title_activity_reservacioncambiar" >
+        </activity>
+        <activity
+            android:name=".reservacioncancelar"
+            android:label="@string/title_activity_reservacioncancelar" >
+        </activity>
     </application>
 
 </manifest>

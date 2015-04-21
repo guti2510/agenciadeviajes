@@ -49,7 +49,7 @@ public class paquete extends ActionBarActivity {
 
     private static String url_all_destinopaquete = "http://agenciadeviajes.esy.es/guticonnect/get_destinospaquete.php";
 
-    private static final String TAG_DESTINO = "destino";
+    private static final String TAG_DESTINO = "viaje";
     private static final String TAG_SUCCESS = "success";
 
     private static final String TAG_IDPAQUETE = "idPaquete";
@@ -59,7 +59,7 @@ public class paquete extends ActionBarActivity {
     JSONArray products = null;
 
 
-    ListView lista;
+    ListView listadedestinos;
 
 
 
@@ -70,7 +70,7 @@ public class paquete extends ActionBarActivity {
 
         destinosList = new ArrayList<HashMap<String, String>>();
 
-        lista = (ListView) findViewById(R.id.listViewdestinos);
+        listadedestinos = (ListView) findViewById(R.id.listViewdedestinos);
 
         new LoadDestinos().execute();
 
@@ -105,11 +105,6 @@ public class paquete extends ActionBarActivity {
         txtFechaF.setText("Fecha Final: "+" "+ FechaFinal);
 
 
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-
     }
 
     class LoadDestinos extends AsyncTask<String, String, String> {
@@ -134,7 +129,9 @@ public class paquete extends ActionBarActivity {
             // Building Parameters
 
             List<NameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair(TAG_IDPAQUETE, idPaquete));
+
+
+            params.add(new BasicNameValuePair("idPaquete", idPaquete));
 
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_all_destinopaquete, "GET", params);
@@ -202,7 +199,7 @@ public class paquete extends ActionBarActivity {
                             R.layout.single_destino,
                             new String[] {TAG_NOMBRE,TAG_DESCRIPCION},new int[] {R.id.single_post_tv_nombre,R.id.single_post_tv_descripcion});
 
-                    lista.setAdapter(adapter);
+                    listadedestinos.setAdapter(adapter);
 
 
                 }
@@ -237,13 +234,32 @@ public class paquete extends ActionBarActivity {
 
     public void pasarReserva(View v){
 
-        String ema = ((global) this.getApplication()).getEmail();
 
-        Toast toast = Toast.makeText(this, "Mensaje:"+ " " + ema , Toast.LENGTH_SHORT);
-        toast.show();
 
-        /*Intent act = new Intent(this, my.class);
-        startActivity(act);*/
+        String email = ((global) this.getApplication()).getEmail();
+
+        if (email == ""){
+            Toast toast1 = Toast.makeText(getApplicationContext(),"No te encuentras autenticado", Toast.LENGTH_SHORT);
+            toast1.show();
+
+        }
+        else {
+
+            String paquete = "paquete";
+            Intent i;
+            i = new Intent(getApplicationContext() , reservacion.class);
+            i.putExtra("ID",idPaquete);
+            i.putExtra("Indicador",paquete);
+            i.putExtra("Nombre",Nombre);
+            i.putExtra("Precio",Precio);
+            i.putExtra("FechaInicio",FechaInicio);
+            i.putExtra("FechaFinal",FechaFinal);
+            startActivity(i);
+
+
+
+        }
+
     }
 
 }

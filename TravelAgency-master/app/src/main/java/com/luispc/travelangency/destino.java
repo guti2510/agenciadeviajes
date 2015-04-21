@@ -5,12 +5,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class destino extends ActionBarActivity {
 
     Bundle b;
+    String idDestino;
     String Nombre;
     String Pais;
     String Precio;
@@ -25,7 +28,7 @@ public class destino extends ActionBarActivity {
         setContentView(R.layout.activity_destino);
 
         b=getIntent().getExtras();
-
+        idDestino = b.getString("idDestino");
         Nombre = b.getString("Nombre");
         Pais = b.getString("Pais");
         Precio = b.getString("Precio");
@@ -79,6 +82,30 @@ public class destino extends ActionBarActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void pasarReserva2(View v) {
+        String email = ((global) this.getApplication()).getEmail();
+
+        if (email == ""){
+            Toast toast1 = Toast.makeText(getApplicationContext(),"No te encuentras autenticado", Toast.LENGTH_SHORT);
+            toast1.show();
+
+        }
+        else {
+
+            String destino = "destino";
+            Intent i;
+            i = new Intent(getApplicationContext() , reservacion.class);
+            i.putExtra("ID",idDestino);
+            i.putExtra("Indicador",destino);
+            i.putExtra("Nombre",Nombre);
+            i.putExtra("Precio",Precio);
+            i.putExtra("FechaInicio",FechaInicio);
+            i.putExtra("FechaFinal",FechaFinal);
+            startActivity(i);
+
         }
     }
 }

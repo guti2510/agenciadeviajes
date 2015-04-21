@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,21 +37,27 @@ public class my extends ActionBarActivity {
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
     JSONParser jParser2 = new JSONParser();
+    JSONParser jParser3 = new JSONParser();
 
     ArrayList<HashMap<String, String>> destinosList;
     ArrayList<HashMap<String, String>> paquetesList;
+    ArrayList<HashMap<String, String>> reservacionList;
 
     TabHost th;
 
     // url to get all products list
     private static String url_all_destinos = "http://agenciadeviajes.esy.es/guticonnect/get_all_destinos.php";
     private static String url_all_paquetes = "http://agenciadeviajes.esy.es/guticonnect/get_all_paquetes.php";
+    private static String url_all_reservaciones = "http://agenciadeviajes.esy.es/guticonnect/get_all_reservaciones.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_DESTINOS = "destinos";
     private static final String TAG_PAQUETES = "paquetes";
+    private static final String TAG_RESERVACION = "reservacion";
     // TAGS DESTINOS
+
+    private static final String TAG_IDDESTINO = "idDestino";
     private static final String TAG_NOMBRE = "Nombre";
     private static final String TAG_PAIS = "Pais";
     private static final String TAG_PRECIO = "Precio";
@@ -67,13 +75,29 @@ public class my extends ActionBarActivity {
     private static final String TAG_FECHAINICIOPAQUETE = "FechaInicio";
     private static final String TAG_FECHAFINALPAQUETE = "FechaFin";
 
+    // TAG RESERVACIONES
+
+    private static final String TAG_IDRESERVACION = "idreservacion";
+    private static final String TAG_NOMBRERESERVACION = "Nombre";
+    private static final String TAG_CANTPERSONAS = "cantpersonas";
+    private static final String TAG_DESCRIPCIONRESERVACION = "Descripcion";
+    private static final String TAG_DIARESERVADO= "diarealizado";
+    private static final String TAG_DIAINIC = "diareservado";
+    private static final String TAG_DIAFIN = "diafinal";
+    private static final String TAG_PRECIOFINAL = "preciofinal";
+    private static final String TAG_TIPO = "tipo";
+
+
     // products JSONArray
     JSONArray products = null;
     JSONArray paquetes = null;
+    JSONArray reservaciones = null;
 
     ListView lista;
     ListView listapaquete;
+    ListView listareservaciones;
 
+    String iddestino;
     String idpaquete;
     String nombre;
     String pais;
@@ -83,19 +107,39 @@ public class my extends ActionBarActivity {
     String fechainicio;
     String fechafinal;
 
+    String idreservacion;
+    String cantpersonas;
+    String diarealizado;
+    String diareservado;
+    String diafinal;
+    String preciofinal;
+    String tipo;
+
+
+
+    String correo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
+        correo = ((global) this.getApplication()).getEmail();
+
         // Hashmap para el ListView
         destinosList = new ArrayList<HashMap<String, String>>();
         paquetesList = new ArrayList<HashMap<String, String>>();
+        reservacionList = new ArrayList<HashMap<String, String>>();
+
+
 
         // Cargar los productos en el Background Thread
-        new LoadAllDestinos().execute();
+        new LoadAll().execute();
         lista = (ListView) findViewById(R.id.listAllProducts);
         listapaquete = (ListView) findViewById(R.id.listAllPaquetes);
+        listareservaciones = (ListView) findViewById(R.id.listAllReservas);
+
+
 
 
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -110,7 +154,9 @@ public class my extends ActionBarActivity {
                 while (it.hasNext()) {
 
                     Map.Entry<String,String> e = it.next();
-
+                    if (e.getKey() == "idDestino"){
+                        iddestino = e.getValue();
+                    }
                     if (e.getKey() == "Nombre"){
                         nombre = e.getValue();
                     }
@@ -137,6 +183,7 @@ public class my extends ActionBarActivity {
 
                 Intent i;
                 i = new Intent(getApplicationContext() , destino.class);
+                i.putExtra("idDestino",iddestino);
                 i.putExtra("Nombre",nombre);
                 i.putExtra("Pais",pais);
                 i.putExtra("Precio",precio);
@@ -198,7 +245,60 @@ public class my extends ActionBarActivity {
         });
 
 
+        listareservaciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Iterator<Map.Entry<String,String>> it;
+                it = reservacionList.get(position).entrySet().iterator();
+
+                while (it.hasNext()) {
+
+                    Map.Entry<String,String> e = it.next();
+                    if (e.getKey() == "idreservacion"){
+                        idreservacion = e.getValue();
+                    }
+                    if (e.getKey() == "Nombre"){
+                        nombre = e.getValue();
+                    }
+                    if (e.getKey() == "cantpersonas"){
+                        cantpersonas = e.getValue();
+                    }
+                    if (e.getKey() == "Descripcion"){
+                        descripcion = e.getValue();
+                    }
+                    if (e.getKey() == "diarealizado"){
+                        diarealizado = e.getValue();
+                    }
+                    if (e.getKey() == "diareservado"){
+                        diareservado = e.getValue();
+                    }
+                    if (e.getKey() == "diafinal"){
+                        diafinal = e.getValue();
+                    }
+                    if (e.getKey() == "preciofinal"){
+                        preciofinal = e.getValue();
+                    }
+                    if (e.getKey() == "tipo"){
+                        tipo = e.getValue();
+                    }
+
+                }
+
+                Intent i;
+                i = new Intent(getApplicationContext() , reservacion_info.class);
+                i.putExtra("idreservacion",idreservacion);
+                i.putExtra("Nombre",nombre);
+                i.putExtra("cantpersonas",cantpersonas);
+                i.putExtra("Descripcion",descripcion);
+                i.putExtra("diarealizado",diarealizado);
+                i.putExtra("diareservado",diareservado);
+                i.putExtra("diafinal",diafinal);
+                i.putExtra("preciofinal",preciofinal);
+                i.putExtra("tipo",tipo);
+                startActivity(i);
+            }
+        });
 
 
 
@@ -227,14 +327,13 @@ public class my extends ActionBarActivity {
         th.addTab(ts3);
 
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
 
     }
 
 
-    class LoadAllDestinos extends AsyncTask<String, String, String> {
+    class LoadAll extends AsyncTask<String, String, String> {
 
         /**
          * Antes de empezar el background thread Show Progress Dialog
@@ -247,6 +346,7 @@ public class my extends ActionBarActivity {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
+
         }
 
     /**
@@ -256,13 +356,21 @@ public class my extends ActionBarActivity {
         // Building Parameters
         List params = new ArrayList();
         List params2 = new ArrayList();
+
+
+        List<NameValuePair> params3 = new ArrayList<>();
+        params3.add(new BasicNameValuePair("correo", correo));
+
         // getting JSON string from URL
         JSONObject json = jParser.makeHttpRequest(url_all_destinos, "GET", params);
         JSONObject json2 = jParser2.makeHttpRequest(url_all_paquetes, "GET", params2);
+        JSONObject json3 = jParser3.makeHttpRequest(url_all_reservaciones, "GET", params3);
+
 
         // Check your log cat for JSON reponse
         Log.d("All Products: ", json.toString());
         Log.d("All Packages: ", json2.toString());
+        Log.d("All Reservaciones: ", json3.toString());
 
         // Agrega los destinos al JSON
         try {
@@ -280,6 +388,7 @@ public class my extends ActionBarActivity {
 
                     // Storing each json item in variable
 
+                    String iddestino= c.getString(TAG_IDDESTINO);
                     String name = c.getString(TAG_NOMBRE);
                     String pais = c.getString(TAG_PAIS);
                     String precio = c.getString(TAG_PRECIO);
@@ -293,7 +402,7 @@ public class my extends ActionBarActivity {
 
                     // adding each child node to HashMap key => value
 
-
+                    map.put(TAG_IDDESTINO, iddestino);
                     map.put(TAG_NOMBRE, name);
                     map.put(TAG_PAIS, pais);
                     map.put(TAG_PRECIO, precio);
@@ -351,6 +460,52 @@ public class my extends ActionBarActivity {
             e.printStackTrace();
         }
 
+        try {
+            // Checking for SUCCESS TAG
+            int success = json3.getInt(TAG_SUCCESS);
+
+            if (success == 1) {
+                // products found
+                // Getting Array of Products
+                reservaciones = json3.getJSONArray(TAG_RESERVACION);
+                // looping through All Products
+
+                for (int i = 0; i < reservaciones.length(); i++) {
+                    JSONObject c3 = reservaciones.getJSONObject(i);
+
+                    // Storing each json item in variable
+                    String idreservacion = c3.getString(TAG_IDRESERVACION);
+                    String nombre3 = c3.getString(TAG_NOMBRERESERVACION);
+                    String cantpersonas = c3.getString(TAG_CANTPERSONAS);
+                    String descripcion3 = c3.getString(TAG_DESCRIPCIONRESERVACION);
+                    String diareserv = c3.getString(TAG_DIARESERVADO);
+                    String diainic = c3.getString(TAG_DIAINIC);
+                    String diafin = c3.getString(TAG_DIAFIN);
+                    String preciofinal = c3.getString(TAG_PRECIOFINAL);
+                    String tipo = c3.getString(TAG_TIPO);
+                    // creating new HashMap
+                    HashMap map3 = new HashMap();
+
+                    // adding each child node to HashMap key => value
+
+                    map3.put(TAG_IDRESERVACION, idreservacion);
+                    map3.put(TAG_NOMBRERESERVACION, nombre3);
+                    map3.put(TAG_CANTPERSONAS, cantpersonas);
+                    map3.put(TAG_DESCRIPCIONRESERVACION, descripcion3);
+                    map3.put(TAG_DIARESERVADO, diareserv);
+                    map3.put(TAG_DIAINIC, diainic);
+                    map3.put(TAG_DIAFIN, diafin);
+                    map3.put(TAG_PRECIOFINAL, preciofinal);
+                    map3.put(TAG_TIPO, tipo);
+
+                    reservacionList.add(map3);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         return null;
     }
 
@@ -388,13 +543,27 @@ public class my extends ActionBarActivity {
                             paquetesList,
                             R.layout.single_post,
                             new String[] {
-                                    TAG_NOMBREPAQUETE,
+                                    TAG_NOMBREPAQUETE,TAG_DESCRIPCIONRESERVACION
                             },
                             new int[] {
                                     R.id.single_post_tv_nombre,
                             });
 
                     listapaquete.setAdapter(adapter2);
+
+                    ListAdapter adapter3 = new SimpleAdapter(
+                            my.this,
+                            reservacionList,
+                            R.layout.single_reservacion,
+                            new String[] {
+                                    TAG_NOMBRERESERVACION,TAG_DESCRIPCIONRESERVACION
+                            },
+                            new int[] {
+                                    R.id.single_post_tv_nombre,R.id.single_post_tv_descripcion
+                            });
+
+                    listareservaciones.setAdapter(adapter3);
+
                 }
             });
         }
