@@ -12,6 +12,7 @@ public class InfoReservacion {
     private String _PrecioFinal;
     private String _TipoReserva;
     private String _CorreoUsuario;
+<<<<<<< HEAD
     private String _Oferta;
 
     public InfoReservacion(){}
@@ -27,6 +28,20 @@ public class InfoReservacion {
         this._TipoReserva = TipoReserva;
         this._CorreoUsuario = CorreoUsuario;
         this._Oferta = Oferta;
+=======
+
+    public InfoReservacion(){}
+
+    public InfoReservacion(String _Nombre, String _CantidadPersonas, String _DiaReservado,
+                           String _FechaFinal, String _PrecioFinal, String _TipoReserva, String _CorreoUsuario) {
+        this._Nombre = _Nombre;
+        this._CantidadPersonas = _CantidadPersonas;
+        this._DiaReservado = _DiaReservado;
+        this._FechaFinal = _FechaFinal;
+        this._PrecioFinal = _PrecioFinal;
+        this._TipoReserva = _TipoReserva;
+        this._CorreoUsuario = _CorreoUsuario;
+>>>>>>> origin/master
     }
 
     public String getNombre() {
@@ -56,8 +71,11 @@ public class InfoReservacion {
     public String getCorreoUsuario() {
         return _CorreoUsuario;
     }
+<<<<<<< HEAD
 
     public String getOferta() {
         return _Oferta;
     }
+=======
+>>>>>>> origin/master
 }

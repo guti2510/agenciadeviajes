@@ -153,6 +153,7 @@ public class reservacion extends ActionBarActivity {
             String cantidadpersonas = posicion;
             String diareservado = FechaInicio;
             String correousuario = Email;
+<<<<<<< HEAD
 
             float calcprecio = Float.parseFloat(Precio);
             float posici = Float.parseFloat(posicion);
@@ -167,6 +168,16 @@ public class reservacion extends ActionBarActivity {
 
             InfoReservacion reservacion = new InfoReservacion( Nombre,cantidadpersonas,diareservado,FechaFinal,preciofinal,
                     tipodereserv,correousuario,Oferta);
+=======
+            int calcprecio = Integer.parseInt(Precio);
+            int posici = Integer.parseInt(posicion);
+            int intpreci = calcprecio * posici;
+            String preciofinal = Integer.toString(intpreci);
+            String tipodereserv = (Indicador.equals("paquete")) ? "paquete" : "destino";
+
+            InfoReservacion reservacion = new InfoReservacion( Nombre,cantidadpersonas,diareservado,FechaFinal,preciofinal,
+                    tipodereserv,correousuario);
+>>>>>>> origin/master
 
             // Add the params to the request
             List<NameValuePair> params = new ArrayList<>();
@@ -178,7 +189,10 @@ public class reservacion extends ActionBarActivity {
             params.add(new BasicNameValuePair("idDestino", idDestino));
             params.add(new BasicNameValuePair("correousuario", reservacion.getCorreoUsuario()));
             params.add(new BasicNameValuePair("tipodereserv", reservacion.getTipoReserva()));
+<<<<<<< HEAD
             params.add(new BasicNameValuePair("oferta", reservacion.getOferta()));
+=======
+>>>>>>> origin/master
 
             JSONObject json = jParser.makeHttpRequest(url_reservarDestino, "GET", params);
 

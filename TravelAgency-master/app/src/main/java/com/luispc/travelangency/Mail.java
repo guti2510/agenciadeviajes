@@ -23,7 +23,11 @@ import javax.mail.internet.MimeMessage;
 public class Mail {
 
     private final String mail = "<div style=\"background-color: #FFFFC9; width: 100%; padding: 30px 0px;\"><table style=\"width: 513px;\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\"><tbody><tr align=\"left\"><td style=\"width: 513px;\">&nbsp;</td></tr><tr bgcolor=\"#303024\"><td style=\"font-size: 21px; font-family: ''Trebuchet MS''; color: #ffffff; width: 513px; padding-left: 15px;\" height=\"45\">Reservacion Agencia de Viajes Tu Ruta</td></tr><tr style=\"background-color: #ffffff;\"><td><table style=\"width: 513px;\" border=\"0\" cellspacing=\"18\" cellpadding=\"0\"><tbody><tr><td style=\"font-size: 13px; font-family: ''Trebuchet MS''; color: #333333;\"><p>Nombre: $Nombre</p><p>Cantidad de Personas: $Cantidad</p><p>Dia Reservado: $DiaReservado</p><p>Fecha Final: $FechaFinal</p>\n" +
+<<<<<<< HEAD
             "<p>Precio Final: $Precio</p><p>Tipo de Reservacion: $Tipo</p><p>Oferta: $Oferta</p></td></tr></tbody></table></td></tr></tbody></table></div>";
+=======
+            "<p>Precio Final: $Precio</p><p>Tipo de Reservacion: $Tipo</p></td></tr></tbody></table></td></tr></tbody></table></div>";
+>>>>>>> origin/master
 
     public String _SystemMail = "travelagencyserver@gmail.com";
     private String _SystemMailPass = "travelagencyserver2015";
@@ -40,7 +44,10 @@ public class Mail {
         emailBody = emailBody.replace("$FechaFinal",pReservacion.getFechaFinal());
         emailBody = emailBody.replace("$Precio",pReservacion.getPrecioFinal());
         emailBody = emailBody.replace("$Tipo",pReservacion.getTipoReserva());
+<<<<<<< HEAD
         emailBody = emailBody.replace("$Oferta",pReservacion.getOferta());
+=======
+>>>>>>> origin/master
 
         return emailBody;
     }
@@ -112,4 +119,8 @@ public class Mail {
 
 
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master
