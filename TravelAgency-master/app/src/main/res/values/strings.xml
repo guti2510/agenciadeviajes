@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Agencia de Viajes Tu Ruta</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_login">Autenticar</string>
+    <string name="title_activity_gmail_auth">GmailAuth</string>
+    <!-- Button text -->
+    <string name="btn_logout_from_google">Cerrar sesion</string>
+    <string name="btn_revoke_access">Revoke Access</string>
+    <string name="title_activity_my">Agencia de Viajes TU Ruta</string>
+    <string name="title_activity_paquete">Paquete</string>
+    <string name="title_activity_destino">Destino</string>
+    <string name="title_activity_reservacion">Reservación</string>
+    <string name="title_activity_reservacion_info">Reservación</string>
+    <string name="title_activity_reservacioncambiar">Cambiar</string>
+    <string name="title_activity_reservacioncancelar">Cancelar</string>
+</resources>

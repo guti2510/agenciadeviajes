@@ -1,0 +1,122 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.luispc.travelangency.my">
+
+
+
+    <TabHost
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tabHost">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"></TabWidget>
+
+
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+
+                    <EditText android:id="@+id/EditText01"
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:hint="Buscar">
+                    </EditText>
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Buscar"
+                        android:id="@+id/button8"
+                        android:onClick="empezarbusqueda" />
+
+                    <ListView
+                        android:id="@+id/listAllProducts"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:dividerHeight="3dp"
+                        android:background="#fff"/>
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+
+                    <EditText android:id="@+id/EditText02"
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:hint="Buscar">
+                    </EditText>
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Buscar"
+                        android:id="@+id/button9"
+                        android:onClick="empezarbusquedapaquete" />
+
+
+
+                    <ListView
+                        android:id="@+id/listAllPaquetes"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:dividerHeight="3dp"
+                        android:background="#fff"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+
+
+                    <ListView
+                        android:id="@+id/listAllReservas"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:dividerHeight="3dp"
+                        android:background="#fff"/>
+
+                </LinearLayout>
+
+
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+
+</LinearLayout>
