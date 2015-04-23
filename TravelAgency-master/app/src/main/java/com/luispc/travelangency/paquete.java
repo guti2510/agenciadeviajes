@@ -38,6 +38,7 @@ public class paquete extends ActionBarActivity {
     String CupoDisponible;
     String FechaInicio;
     String FechaFinal;
+    String Oferta;
 
     // Progress Dialog
     private ProgressDialog pDialog;
@@ -72,8 +73,6 @@ public class paquete extends ActionBarActivity {
 
         listadedestinos = (ListView) findViewById(R.id.listViewdedestinos);
 
-        new LoadDestinos().execute();
-
         b=getIntent().getExtras();
 
         idPaquete = b.getString("idpaquete");
@@ -84,6 +83,7 @@ public class paquete extends ActionBarActivity {
         CupoDisponible = b.getString("CupoDisponible");
         FechaInicio = b.getString("FechaInicio");
         FechaFinal = b.getString("FechaFinal");
+        Oferta = b.getString("Oferta");
 
 
         TextView txtNombre = (TextView)findViewById(R.id.textView);
@@ -103,6 +103,13 @@ public class paquete extends ActionBarActivity {
 
         TextView txtFechaF = (TextView)findViewById(R.id.textView7);
         txtFechaF.setText("Fecha Final: "+" "+ FechaFinal);
+
+        if (!Oferta.equals("1")){
+            TextView txtoferta = (TextView)findViewById(R.id.textView25);
+            txtoferta.setText("En Oferta");
+        }
+
+        new LoadDestinos().execute();
 
 
     }
@@ -254,6 +261,7 @@ public class paquete extends ActionBarActivity {
             i.putExtra("Precio",Precio);
             i.putExtra("FechaInicio",FechaInicio);
             i.putExtra("FechaFinal",FechaFinal);
+            i.putExtra("Oferta",Oferta);
             startActivity(i);
 
 

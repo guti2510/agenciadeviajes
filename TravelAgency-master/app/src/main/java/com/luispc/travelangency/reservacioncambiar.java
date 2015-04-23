@@ -144,13 +144,13 @@ public class reservacioncambiar extends ActionBarActivity {
 
             String cantidadnueva = posicion;
 
-            int cantidadnue = Integer.parseInt(posicion);
-            int calcprecio = Integer.parseInt(preciofinal);
-            int posici = Integer.parseInt(cantpersonas);
-            int intpreci = calcprecio / posici ;
-            int prectotal = intpreci * cantidadnue;
+            float cantidadnue = Float.parseFloat(posicion);
+            float calcprecio = Float.parseFloat(preciofinal);
+            float posici = Float.parseFloat(cantpersonas);
+            float intpreci = calcprecio / posici ;
+            float prectotal = intpreci * cantidadnue;
 
-            String precioFinal = Integer.toString(prectotal);
+            String precioFinal = Float.toString(prectotal);
 
 
 

@@ -13,14 +13,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Cantidad de personas:"
         android:id="@+id/textView11"
-        android:layout_above="@+id/spinnerPersonas"
+        android:layout_alignTop="@+id/spinnerPersonas"
         android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerPersonas"
-        android:layout_centerVertical="true"
+        android:layout_above="@+id/button4"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="101dp"
         android:layout_toEndOf="@+id/textView11" />
 
     <TextView
@@ -29,6 +31,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/textView13"
+        android:layout_below="@+id/textView26"
         android:layout_alignParentStart="true"
         android:layout_marginTop="50dp" />
 
@@ -67,7 +70,7 @@
         android:id="@+id/textView16"
         android:layout_below="@+id/textView13"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="47dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -85,4 +88,13 @@
         android:text="Large Text"
         android:id="@+id/textView12"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textView26"
+        android:layout_below="@+id/textView12"
+        android:layout_alignParentStart="true"
+        android:textColor="#ff168230" />
 </RelativeLayout>

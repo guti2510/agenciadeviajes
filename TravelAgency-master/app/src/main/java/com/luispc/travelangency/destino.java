@@ -21,6 +21,7 @@ public class destino extends ActionBarActivity {
     String CupoDisponible;
     String FechaInicio;
     String FechaFinal;
+    String Oferta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class destino extends ActionBarActivity {
         CupoDisponible = b.getString("CupoDisponible");
         FechaInicio = b.getString("FechaInicio");
         FechaFinal = b.getString("FechaFinal");
+        Oferta = b.getString("Oferta");
 
         TextView txtNombre = (TextView)findViewById(R.id.textView);
         txtNombre.setText(Nombre);
@@ -57,6 +59,14 @@ public class destino extends ActionBarActivity {
 
         TextView txtFechaF = (TextView)findViewById(R.id.textView7);
         txtFechaF.setText("Fecha Final: "+" "+ FechaFinal);
+
+        if (!Oferta.equals("1")){
+            TextView txtoferta = (TextView)findViewById(R.id.textView24);
+            txtoferta.setText("En Oferta");
+        }
+
+
+
     }
 
 
@@ -104,6 +114,7 @@ public class destino extends ActionBarActivity {
             i.putExtra("Precio",Precio);
             i.putExtra("FechaInicio",FechaInicio);
             i.putExtra("FechaFinal",FechaFinal);
+            i.putExtra("Oferta",Oferta);
             startActivity(i);
 
         }

@@ -64,8 +64,6 @@ public class reservacion_info extends ActionBarActivity {
         preciofinal = b.getString("preciofinal");
         tipo = b.getString("tipo");
 
-        Toast toast1 = Toast.makeText(getApplicationContext(),tipo, Toast.LENGTH_SHORT);
-        toast1.show();
 
         if (tipo.equals("paquete")){
             TextView txttipo = (TextView)findViewById(R.id.textView9);

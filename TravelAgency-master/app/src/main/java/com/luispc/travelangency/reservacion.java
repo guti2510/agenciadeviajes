@@ -38,6 +38,7 @@ public class reservacion extends ActionBarActivity {
     String Indicador;
     String ID;
     String Email;
+    String Oferta;
     Bundle b;
 
     String[] opciones = {"1","2","3","4","5"};
@@ -72,6 +73,7 @@ public class reservacion extends ActionBarActivity {
         Precio = b.getString("Precio");
         FechaInicio = b.getString("FechaInicio");
         FechaFinal = b.getString("FechaFinal");
+        Oferta = b.getString("Oferta");
         Email = ((global) this.getApplication()).getEmail();
 
 
@@ -87,6 +89,11 @@ public class reservacion extends ActionBarActivity {
 
         TextView txtFechaF = (TextView)findViewById(R.id.textView15);
         txtFechaF.setText("  " + FechaFinal);
+
+        if (!Oferta.equals("1")){
+            TextView txtoferta = (TextView)findViewById(R.id.textView26);
+            txtoferta.setText("En Oferta");
+        }
 
         personas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -142,83 +149,38 @@ public class reservacion extends ActionBarActivity {
         protected String doInBackground(String... args) {
             // Building Parameters
 
-
+            String idDestino = ID;
             String cantidadpersonas = posicion;
             String diareservado = FechaInicio;
-            String idDestino;
-
             String correousuario = Email;
-            String tipodereserv;
+
+            float calcprecio = Float.parseFloat(Precio);
+            float posici = Float.parseFloat(posicion);
+            float intpreci = calcprecio * posici;
+
+            float oferta = Float.parseFloat(Oferta);
+            float descuento = intpreci * oferta;
 
 
-            int calcprecio = Integer.parseInt(Precio);
-            int posici = Integer.parseInt(posicion);
-            int intpreci = calcprecio * posici;
-            String preciofinal = Integer.toString(intpreci);
+            String preciofinal = Float.toString(descuento);
+            String tipodereserv = (Indicador.equals("paquete")) ? "paquete" : "destino";
 
+            InfoReservacion reservacion = new InfoReservacion( Nombre,cantidadpersonas,diareservado,FechaFinal,preciofinal,
+                    tipodereserv,correousuario,Oferta);
 
+            // Add the params to the request
+            List<NameValuePair> params = new ArrayList<>();
+            params.add(new BasicNameValuePair("Nombre", reservacion.getNombre()));
+            params.add(new BasicNameValuePair("cantidadpersonas", reservacion.getCantidadPersonas()));
+            params.add(new BasicNameValuePair("diareservado", reservacion.getDiaReservado()));
+            params.add(new BasicNameValuePair("FechaFinal", reservacion.getFechaFinal()));
+            params.add(new BasicNameValuePair("preciofinal", reservacion.getPrecioFinal()));
+            params.add(new BasicNameValuePair("idDestino", idDestino));
+            params.add(new BasicNameValuePair("correousuario", reservacion.getCorreoUsuario()));
+            params.add(new BasicNameValuePair("tipodereserv", reservacion.getTipoReserva()));
+            params.add(new BasicNameValuePair("oferta", reservacion.getOferta()));
 
-            JSONObject json;
-            // getting JSON string from URL
-
-
-            if (Indicador.equals("paquete")){
-
-                idDestino = ID;
-                tipodereserv = "paquete";
-
-                System.out.println(Nombre);
-                System.out.println(cantidadpersonas);
-                System.out.println(diareservado);
-                System.out.println(FechaFinal);
-                System.out.println(preciofinal);
-                System.out.println(correousuario);
-                System.out.println(tipodereserv);
-
-
-                List<NameValuePair> params = new ArrayList<>();
-                params.add(new BasicNameValuePair("Nombre", Nombre));
-                params.add(new BasicNameValuePair("cantidadpersonas", cantidadpersonas));
-                params.add(new BasicNameValuePair("diareservado", diareservado));
-                params.add(new BasicNameValuePair("FechaFinal", FechaFinal));
-                params.add(new BasicNameValuePair("preciofinal", preciofinal));
-                params.add(new BasicNameValuePair("idDestino", idDestino));
-                params.add(new BasicNameValuePair("correousuario", correousuario));
-                params.add(new BasicNameValuePair("tipodereserv", tipodereserv));
-
-                json = jParser.makeHttpRequest(url_reservarDestino, "GET", params);
-
-
-
-
-            }
-            else {
-
-                idDestino = ID;
-                tipodereserv = "destino";
-
-                System.out.println(Nombre);
-                System.out.println(cantidadpersonas);
-                System.out.println(diareservado);
-                System.out.println(FechaFinal);
-                System.out.println(preciofinal);
-                System.out.println(idDestino);
-                System.out.println(correousuario);
-                System.out.println(tipodereserv);
-
-                List<NameValuePair> params = new ArrayList<>();
-                params.add(new BasicNameValuePair("Nombre", Nombre));
-                params.add(new BasicNameValuePair("cantidadpersonas", cantidadpersonas));
-                params.add(new BasicNameValuePair("diareservado", diareservado));
-                params.add(new BasicNameValuePair("FechaFinal", FechaFinal));
-                params.add(new BasicNameValuePair("preciofinal", preciofinal));
-                params.add(new BasicNameValuePair("idDestino", idDestino));
-                params.add(new BasicNameValuePair("correousuario", correousuario));
-                params.add(new BasicNameValuePair("tipodereserv", tipodereserv));
-                json = jParser.makeHttpRequest(url_reservarDestino, "GET", params);
-
-
-            }
+            JSONObject json = jParser.makeHttpRequest(url_reservarDestino, "GET", params);
 
             // Check your log cat for JSON reponse
             Log.d("All Products: ", json.toString());
@@ -229,6 +191,12 @@ public class reservacion extends ActionBarActivity {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
+
+                    // Send emails
+                    Mail mail = new Mail();
+                    mail.sendMail(reservacion.getCorreoUsuario(),"Nueva Reservación",reservacion);
+                    mail.sendMail(mail._SystemMail,"Nueva Reservación",reservacion);
+
                     Intent i;
                     i = new Intent(getApplicationContext() , my.class);
                     startActivity(i);
@@ -274,7 +242,5 @@ public class reservacion extends ActionBarActivity {
     public void confirmarReserva(View v){
 
         new insertarReservacion().execute();
-
-
     }
 }

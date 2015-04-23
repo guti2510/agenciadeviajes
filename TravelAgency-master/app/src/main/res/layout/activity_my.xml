@@ -26,6 +26,8 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"></TabWidget>
 
+
+
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
@@ -36,6 +38,20 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical">
+
+                    <EditText android:id="@+id/EditText01"
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:hint="Buscar">
+                    </EditText>
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Buscar"
+                        android:id="@+id/button8"
+                        android:onClick="empezarbusqueda" />
 
                     <ListView
                         android:id="@+id/listAllProducts"
@@ -54,6 +70,22 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical">
+
+                    <EditText android:id="@+id/EditText02"
+                        android:layout_height="wrap_content"
+                        android:layout_width="fill_parent"
+                        android:hint="Buscar">
+                    </EditText>
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Buscar"
+                        android:id="@+id/button9"
+                        android:onClick="empezarbusquedapaquete" />
+
+
 
                     <ListView
                         android:id="@+id/listAllPaquetes"
@@ -78,12 +110,13 @@
                         android:dividerHeight="3dp"
                         android:background="#fff"/>
 
-                    </LinearLayout>
+                </LinearLayout>
 
 
 
             </FrameLayout>
         </LinearLayout>
     </TabHost>
+
 
 </LinearLayout>

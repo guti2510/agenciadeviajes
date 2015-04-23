@@ -21,10 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
-        android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="35dp" />
+        android:layout_below="@+id/textView25"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="texto"
@@ -89,8 +87,18 @@
         android:layout_height="wrap_content"
         android:text="Reservar"
         android:id="@+id/button"
+        android:onClick="pasarReserva"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="pasarReserva" />
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textView25"
+        android:textColor="#ff0d9332"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
